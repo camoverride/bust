@@ -172,7 +172,7 @@ while True:
     frame, coords = detect_and_draw_faces(frame)
 
     # Shrink the frame.
-    frame = cv2.resize(image, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA)
+    frame = cv2.resize(frame, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA)
 
     # Display the frame [debug].
     cv2.imshow("Pi Camera Feed", frame)
