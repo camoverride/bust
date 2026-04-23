@@ -3,7 +3,7 @@ from luma.oled.device import ssd1331
 from PIL import Image, ImageDraw
 import time
 import random
-
+import mediapipe as mp
 
 from picamera2 import Picamera2
 import cv2
@@ -12,6 +12,51 @@ import cv2
 picam2 = Picamera2()
 picam2.configure(picam2.create_preview_configuration())
 picam2.start()
+
+
+
+
+mp_face = mp.solutions.face_detection
+mp_draw = mp.solutions.drawing_utils
+
+face_detector = mp_face.FaceDetection(model_selection=0, min_detection_confidence=0.5)
+
+
+
+def detect_and_draw_faces(frame):
+    """
+    Detect faces, draw bounding boxes, and print center coordinates.
+    Returns annotated frame.
+    """
+
+    h, w, _ = frame.shape
+
+    # MediaPipe expects RGB
+    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+    results = face_detector.process(rgb)
+
+    if results.detections:
+        for detection in results.detections:
+            bbox = detection.location_data.relative_bounding_box
+
+            x = int(bbox.xmin * w)
+            y = int(bbox.ymin * h)
+            bw = int(bbox.width * w)
+            bh = int(bbox.height * h)
+
+            # Draw rectangle
+            cv2.rectangle(frame, (x, y), (x + bw, y + bh), (0, 255, 0), 2)
+
+            # Center point
+            cx = x + bw // 2
+            cy = y + bh // 2
+
+            print(f"Face center: ({cx}, {cy})")
+
+            # Optional: draw center dot
+            cv2.circle(frame, (cx, cy), 4, (0, 0, 255), -1)
+
+    return frame
 
 
 
@@ -97,6 +142,7 @@ while True:
     frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
     # Show frame
+    frame = detect_and_draw_faces(frame)
     cv2.imshow("Pi Camera Feed", frame)
 
     # Press 'q' to quit
