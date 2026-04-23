@@ -117,6 +117,9 @@ blink = 0
 blink_timer = random.randint(50, 150)
 
 
+pupil_range = 10 # larger values = larger movements
+
+
 def draw_eye(
         draw,
         px,
@@ -131,11 +134,10 @@ def draw_eye(
         fill="white"
     )
 
-    # Constrain pupil - larger values = larger movements
-    # px = max(-10, min(10, px))
-    # py = max(-10, min(10, py))
-    px = max(-16, min(16, px))
-    py = max(-16, min(16, py))
+    # Constrain pupil
+    # pupil_range = 16
+    px = max(-1 * pupil_range, min(pupil_range, px))
+    py = max(-1 * pupil_range, min(pupil_range, py))
 
     # Pupil
     draw.ellipse(
@@ -199,14 +201,14 @@ while True:
         ny = (cy - h / 2) / (h / 2)
 
         # Scale to pupil range
-        target_x = nx * 10
-        target_y = ny * 10
+        target_x = nx * pupil_range
+        target_y = ny * pupil_range
 
     else:
         # No face → slow random wandering
         if random.random() < 0.02:
-            target_x = random.randint(-10, 10)
-            target_y = random.randint(-10, 10)
+            target_x = random.randint(-1 * pupil_range, pupil_range)
+            target_y = random.randint(-1 * pupil_range, pupil_range)
 
     # Smooth movement.
     pupil_x += (target_x - pupil_x) * 0.45 # Larger values = faster movements
