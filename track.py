@@ -163,6 +163,9 @@ while True:
     # Capture frame.
     frame = picam2.capture_array()
 
+    # Shrink the frame.
+    frame = cv2.resize(frame, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA)
+
     # Rotate 90 degrees clockwise.
     frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
@@ -171,8 +174,7 @@ while True:
     # Apply facial detection.
     frame, coords = detect_and_draw_faces(frame)
 
-    # Shrink the frame.
-    frame = cv2.resize(frame, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA)
+
 
     # Display the frame [debug].
     cv2.imshow("Pi Camera Feed", frame)
