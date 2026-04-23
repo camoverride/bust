@@ -27,11 +27,13 @@ face_detector = mp_face.FaceDetection(
 
 
 def detect_and_draw_faces(
-        frame: np.ndarray) -> tuple[np.ndarray, list]:
+        frame: np.ndarray) -> tuple[np.ndarray, list | None]:
     """
     Detect faces, draw bounding boxes, and print center coordinates.
     Returns annotated frame and the center-point of the bounding box.
     This is used for face tracking (center point) and debugging.
+    If no face is detected, then the second element of the returned
+    tuple will be None
 
     Parameters
     ----------
@@ -40,10 +42,11 @@ def detect_and_draw_faces(
 
     Returns
     -------
-    tuple[np.ndarray, list]
+    tuple[np.ndarray, list | None]
         A tuple containing
             - np.ndarray: the annotated frame
             - list: the coordinates of the center of the face bb.
+                if no face is detected, returns None
     """
     h, w, _ = frame.shape
 
@@ -72,7 +75,10 @@ def detect_and_draw_faces(
             cv2.circle(frame, (cx, cy), 4, (0, 0, 255), -1)
 
 
-    return frame, face_center_coords
+        return frame, face_center_coords
+
+    else:
+        return frame, None
 
 
 # SPI setups
