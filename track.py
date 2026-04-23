@@ -213,13 +213,13 @@ while True:
     # Blink logic
     blink_timer -= 1
     if blink_timer <= 0:
-        blink += 0.2
+        blink += 0.6 # Larger values = faster close
         if blink >= 1:
             blink = 1
         if blink >= 1 and random.random() < 0.2:
-            blink_timer = random.randint(80, 200)
+            blink_timer = random.randint(40, 120) # blink interval
     else:
-        blink -= 0.2
+        blink -= 0.4 # Larger values = faster re-open.
         if blink < 0:
             blink = 0
 
