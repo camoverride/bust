@@ -183,13 +183,18 @@ while True:
 
 
 
-    # Display the frame [debug].
-    cv2.imshow("Pi Camera Feed", frame)
-    print(coords)
+    # Display the frame [debug]. If no monitor is connected
+    # swallow the error and continue.
+    try:
 
-    # Press 'q' to quit
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        cv2.imshow("Pi Camera Feed", frame)
+        print(coords)
+
+        # Press 'q' to quit
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    except:
+        pass
 
     # Face tracking → target pupil position
     if coords is not None:
