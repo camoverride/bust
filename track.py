@@ -117,7 +117,7 @@ blink = 0
 blink_timer = random.randint(50, 150)
 
 
-pupil_range = 10 # larger values = larger movements
+pupil_range = 15 # larger values = larger movements
 
 
 def draw_eye(
