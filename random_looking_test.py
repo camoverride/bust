@@ -7,29 +7,18 @@ import random
 
 
 # SPI setups
-serial1 = spi(
+serial = spi(
     port=0,
     device=0,
     gpio_DC=25,
     gpio_RST=24)
 
-serial2 = spi(
-    port=0,
-    device=1,
-    gpio_DC=25,
-    gpio_RST=24)
 
-device1 = ssd1331(
-    serial1,
+device = ssd1331(
+    serial,
     width=96,
     height=64)
 
-device2 = ssd1331(
-    serial2,
-    width=96,
-    height=64)
-
-devices = [device1, device2]
 
 # Create shared image buffer
 width, height = 96, 64
@@ -119,8 +108,7 @@ while True:
 
     draw_eye(draw, pupil_x, pupil_y, blink)
 
-    # Send same frame to both displays
-    for d in devices:
-        d.display(image)
+    # Send same frame to display
+    device.display(image)
 
     time.sleep(0.03)
