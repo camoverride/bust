@@ -94,7 +94,7 @@ while True:
     frame = picam2.capture_array()
 
     # Rotate 90 degrees clockwise
-    frame = cv2.rotate(frame, cv2.ROTATE_270_CLOCKWISE)
+    frame = cv2.rotate(frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
     # Show frame
     cv2.imshow("Pi Camera Feed", frame)
