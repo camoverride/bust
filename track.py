@@ -229,7 +229,7 @@ while True:
     # Send same frame to display.
     device.display(image)
 
-    time.sleep(0.03)
+    time.sleep(0.01)
 
 
 
