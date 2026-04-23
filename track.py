@@ -216,7 +216,7 @@ while True:
         blink += 0.2
         if blink >= 1:
             blink = 1
-        if blink >= 1 and random.random() < 0.3:
+        if blink >= 1 and random.random() < 0.2:
             blink_timer = random.randint(80, 200)
     else:
         blink -= 0.2
@@ -232,7 +232,7 @@ while True:
     # Send same frame to display.
     device.display(image)
 
-    time.sleep(0.01)
+    time.sleep(0.001)
 
 
 
