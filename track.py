@@ -163,6 +163,9 @@ while True:
     # Capture frame.
     frame = picam2.capture_array()
 
+    # Vertically flip the frame so it is "mirrored"
+    frame = cv2.flip(frame, 0)
+
     # Shrink the frame.
     frame = cv2.resize(frame, None, fx=0.3, fy=0.3, interpolation=cv2.INTER_AREA)
 
