@@ -131,9 +131,11 @@ def draw_eye(
         fill="white"
     )
 
-    # Constrain pupil
-    px = max(-10, min(10, px))
-    py = max(-10, min(10, py))
+    # Constrain pupil - larger values = larger movements
+    # px = max(-10, min(10, px))
+    # py = max(-10, min(10, py))
+    px = max(-16, min(16, px))
+    py = max(-16, min(16, py))
 
     # Pupil
     draw.ellipse(
@@ -207,8 +209,8 @@ while True:
             target_y = random.randint(-10, 10)
 
     # Smooth movement.
-    pupil_x += (target_x - pupil_x) * 0.2
-    pupil_y += (target_y - pupil_y) * 0.2
+    pupil_x += (target_x - pupil_x) * 0.45 # Larger values = faster movements
+    pupil_y += (target_y - pupil_y) * 0.45 # Larger values = faster movements
 
     # Blink logic
     blink_timer -= 1
