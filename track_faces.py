@@ -215,21 +215,18 @@ while True:
     pupil_x += (target_x - pupil_x) * 0.45 # Larger values = faster movements
     pupil_y += (target_y - pupil_y) * 0.45 # Larger values = faster movements
 
-    # Blink logic.
+    # Blink logic
     blink_timer -= 1
-
     if blink_timer <= 0:
-        blink += 0.8   # fast close
-
+        blink += 0.8 # Larger values = faster close
         if blink >= 1:
             blink = 1
-            blink_timer = 3   # VERY SHORT closed hol
+        if blink >= 1 and random.random() < 0.2:
+            blink_timer = random.randint(40, 120) # blink interval
     else:
-        blink -= 0.6   # fast open
-
-        if blink <= 0:
+        blink -= 0.4 # Larger values = faster re-open.
+        if blink < 0:
             blink = 0
-            blink_timer = random.randint(80, 180)
 
     # Create image.
     image = Image.new("RGB", (width, height), "black")
