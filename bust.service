@@ -1,0 +1,15 @@
+[Unit]
+Description=run tracking bust
+After=default.target
+
+[Service]
+Type=simple
+Restart=always
+WorkingDirectory=/home/%u/bust
+ExecStart=/home/%u/bust/.venv/bin/python /home/%u/bust/track_faces.py
+StandardOutput=journal
+StandardError=journal
+Environment="PATH=/home/%u/bust/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+
+[Install]
+WantedBy=default.target
